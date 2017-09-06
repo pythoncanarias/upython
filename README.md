@@ -20,6 +20,8 @@ picocom /dev/ttyUSB0 -b 115200
 
 ### MacOS
 
+Para conectarnos a la placa, usaremos _coolTerm_.
+
 ### CoolTerm
 
 Para descargar CoolTerm Puede hacerse desde el siguiente [enlace](http://freeware.the-meiers.org/CoolTermMac.zip)

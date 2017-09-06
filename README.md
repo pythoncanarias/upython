@@ -20,3 +20,8 @@ picocom /dev/ttyUSB0 -b 115200
 
 ### MacOS
 ### Windows
+
+
+## Pinout del NodeMCU
+
+![alt text](https://docs.bsfrance.fr/documentation/10663_NODEMCU_V3_CH340/Pinout.png "Esquema de pines para la NodeMCU")

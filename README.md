@@ -19,4 +19,16 @@ picocom /dev/ttyUSB0 -b 115200
 
 
 ### MacOS
+
+### CoolTerm
+
+Para descargar CoolTerm Puede hacerse desde el siguiente [enlace](http://freeware.the-meiers.org/CoolTermMac.zip)
+
+Una vez descargado e instalado, se configurará el puerto a utilizar; pulsando en el botón _Options_.
+
+![opcionesCoolTerm](imagenes/optioncoolTerm.png)
+
+Una vez configurado el puerto (con el que nos aparece en nuestro MAC) y configurado el baudrate a _115200_. Pulsaremos OK y al botón _connect_. Apareciendo el promt de Python.
+
+![coolTerm](imagenes/coolTerm.png)
 ### Windows

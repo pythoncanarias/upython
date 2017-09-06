@@ -32,3 +32,8 @@ Una vez configurado el puerto (con el que nos aparece en nuestro MAC) y configur
 
 ![coolTerm](imagenes/coolTerm.png)
 ### Windows
+
+
+## Pinout del NodeMCU
+
+![alt text](https://docs.bsfrance.fr/documentation/10663_NODEMCU_V3_CH340/Pinout.png "Esquema de pines para la NodeMCU")

@@ -56,7 +56,6 @@ Para windows también debemos instalar los drivers CH340/CH341; que podemos enco
 Una vez instalado, usaremos los mismos pasos que para Linux poniendo el puerto COM correspondiente.
 
 
-
 ### Herramientas de terminal
 
 #### Linux
@@ -94,6 +93,29 @@ Una vez configurado el puerto (con el que nos aparece en nuestro MAC) y configur
 
 
 ## Primeros Pasos
+
+Una vez tenemos ya micropython, usaremos la consola serie para mandar las instrucciones Python; de forma que podremos ejecutar nuestro código python en la NodeMCU.
+
+![holamundo](imagenes/holamundo.png)
+
+Podemos comprobar la version y el estado de nuestro firmware con el siguiente código.
+
+```python
+
+import esp
+esp.check_fw()
+
+```
+
+![checkfw](imagenes/checkfw.png)
+
+## Entrada/salida Digital
+
+## Entrada/Salida Analogica
+
+## Sensores
+
+## ESP8266
 
 ## Pinout del NodeMCU
 

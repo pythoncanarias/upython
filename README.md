@@ -4,7 +4,7 @@
 
 * [Pasos Previos](#pasos-previos)
 * [Primeros pasos con MicroPython](#primeros-pasos)
-* [Pinout de NodeMCU](#pinout-del-NodeMCU)
+* [Pinout de NodeMCU](#pinout-del-nodemcu)
 ## Pasos Previos
 
 Antes de poder instalar MicroPython, necesitaremos tener instalado Python 3.4 o superior.
@@ -93,8 +93,8 @@ Una vez configurado el puerto (con el que nos aparece en nuestro MAC) y configur
 #### Windows
 
 
+## Primeros Pasos
+
 ## Pinout del NodeMCU
 
 ![alt text](https://docs.bsfrance.fr/documentation/10663_NODEMCU_V3_CH340/Pinout.png "Esquema de pines para la NodeMCU")
-
-## Primeros Pasos

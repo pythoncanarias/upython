@@ -89,6 +89,7 @@ Una vez descargado e instalado, se configurará el puerto a utilizar; pulsando e
 Una vez configurado el puerto (con el que nos aparece en nuestro MAC) y configurado el baudrate a _115200_. Pulsaremos OK y al botón _connect_. Apareciendo el promt de Python.
 
 ![coolTerm](imagenes/coolTerm.png)
+
 #### Windows
 
 

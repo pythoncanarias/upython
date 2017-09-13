@@ -4,6 +4,8 @@
 
 * [Pasos Previos](#pasos-previos)
 * [Primeros pasos con MicroPython](#primeros-pasos)
+* [Entrada/Salida Digital](#entradasalida-digital)
+* [Entrada/Salida Analógica](#entradasalida-analogica)
 * [Pinout de NodeMCU](#pinout-del-nodemcu)
 ## Pasos Previos
 

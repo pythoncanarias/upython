@@ -1,12 +1,18 @@
 # upython
 
+
 ## Contenidos del curso
 
 * [Pasos Previos](#pasos-previos)
+* [Que es MicroPython](#que-es-micropython)
 * [Primeros pasos con MicroPython](#primeros-pasos)
 * [Entrada/Salida Digital](#entradasalida-digital)
 * [Entrada/Salida Analógica](#entradasalida-analogica)
+* [Sensores](#sensores)
+* [ESP8266](#esp8266)
 * [Pinout de NodeMCU](#pinout-del-nodemcu)
+
+
 ## Pasos Previos
 
 Antes de poder instalar MicroPython, necesitaremos tener instalado Python 3.4 o superior.
@@ -75,7 +81,6 @@ picocom /dev/ttyUSB0 -b 115200
 * <kbd>Control</kbd>-<kbd>d</kbd> NODEMCU SOFT REBOOT
 
 
-
 #### MacOS
 
 Para conectarnos a la placa, usaremos _coolTerm_.
@@ -94,6 +99,15 @@ Una vez configurado el puerto (con el que nos aparece en nuestro MAC) y configur
 
 #### Windows
 
+## Que es MicroPython
+
+MicroPython es una implementacion del standar de Python 3.4(un conjunto de esta); además de tener una serie de librerías o framework para que sea ejecutado en microcontroladores.
+
+MicroPython permite ser ejecutado en distintas placas con varios microcontroladores. 
+
+En nuestro caso, utilizaremos la placa NodeMCU con el microcontrolador ESP8266.
+
+Para saber que placas son compatibles mirar en la [documentación oficial](http://docs.micropython.org).
 
 ## Primeros Pasos
 
@@ -197,7 +211,7 @@ Este es un ejemplo de salida digital; seguidamente mostraremos un ejemplo de ent
 
 **NOTA:** La función ```sleep()``` del módulo ```time``` hace que se espere el tiempo pasado por parámetro en segundos.
 
-### Pulsadores
+###  Segundo Ejercicio: Pulsadores
 
 Un pulsador es un ejemplo de entrada digital; ya que permite mandar un pulso (1) o ausencia de él (0); a partir de pulsarlo o no.
 
@@ -240,7 +254,7 @@ Una vez vistos las entrada y salidas digitales, pasaremos a ver las analógicas;
 
 En el caso del ESP8266, como otros tantos MicroControladores, nos permite mandar o recibir valores analógicos.
 
-### Entradas Analógicas
+### Tercer Ejecicio: Entradas Analógicas
 
 La NodeMCU, permite recibir datos analógicos a través de un ADC (Analog DIgital Converter); de manera que toma el valor analógico y lo trasnforma a digital de forma que obtiene una serie de niveles de voltaje en función del valor obtenido.
 
@@ -284,12 +298,26 @@ while True:
 
 **NOTA:** Para parar la ejecución, pulsaremos <kbd>control</kbd>+<kbd>c</kbd>.
 
-### PWM
+### Cuarto Ejercicio: PWM
+
+A la hora de utilizar las salidas analógicas, tenemos que saber que en la NodeMCU utiliza el llamado PWM.
+
+En la NodeMCU tenemos 10 bits de precision por lo que podremos sacar un valor de 0 a 1023. Esto nos permitira por ejemplo, cambiar la intensidad del brillo de un led; cambiando el nivel de voltaje de este.
+
+Seguidamente veremos un ejemplo de como cambiar la intensidad de un led.
+
+Para este ejercicio necesitaremos:
+
+* 1 NodeMCU
+* 1 led
+* 1 resistencia de 220Ohmios
+
+![pwm](imagenes/pwm.png)
 
 ```python
 import machine
 
-pwm=machine.PWM(machine.Pin(4))
+pwm=machine.PWM(machine.Pin(5))
 pwm.freq(60)
 
 while True:
@@ -297,16 +325,60 @@ while True:
         pwm.duty(i)
 
 ```
-## Sensores
+
+**NOTA**: No se puede utilizar como PWM la salida digital 0 (GPIO16).
+
+### Quinto Ejercicio: Entrada y salida Analógica
+
+Una vez hemos visto como se utiliza por un lado la entrada analógica y por otro la salida analógica vamos a combinarlos para cambiar la intensidad de un led con una resistencia LDR o fotoresistencia.
+
+Una fotoresistencia o LDR, es una resistencia que cambia de valor con respecto a la luz que reciba.
+
+
+Para este ejercicio necesitaremos:
+
+* 1 NodeMCU
+* 2 Resistencias de 220Ohmios
+* 1 Fotoresistencia
+* cables de conexión
+
+![ldr](imagenes/ldr.png)
+
+
+```python
+
+from machine import Pin,PWM,ADC
+ led=Pin(2)
+ led.on()
+ adc=ADC(0)
+ pwm=PWM(led)
+ pwm.freq(60)
+ while True:
+     pwm.duty(adc.read())
+
+```
+
+## Sexto Ejercicio:  Sensores
+
+MicroPython permite trabajar con distintos tipos de sensores los cuales podemos utilizar tanto por librerias propias, como utilizando distintos protocolos como el I2C o en SPI. 
+
+En nuestro caso, vamos a usar un sensor HC-SR04 de ultrasonidos el cual permite medir distancias utilizando pulsos de ultrasonidos. 
+
+Para poder utilizar este sensor usaremos la librería modificada para el ESP8266 [ultrasonic](ultrasonic.py)
+
+Por lo que en primer lugar nos descargaremos la librería. 
+
+Una vez decargada, necesitaremos subirlo al microcontrolador por lo que utilizaremos el programa mpfshell para poder subir a la placa.
 
 ### Subida de ficheros con [mpfshell](#referencias)
+
+Para subir ficheros con mpfshell en primer lugar lo instalaremos usando pip.
 
 ```bash
 $pip install mpfshell
 ```
-### Libreria para el sensor de ultrasonidos (HC-SR04)
 
-Librería para micropython [ultrasonic.py](https://raw.githubusercontent.com/mithru/MicroPython-Examples/master/08.Sensors/HC-SR04/ultrasonic.py)
+Una vez instalado, usaremos este programa para subir el fichero de la librería.
 
 ```bash
 mpfshell -c "put ultrasonic.py"

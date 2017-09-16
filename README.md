@@ -116,13 +116,13 @@ esp.check_fw()
 
 Lo principal a la hora de trabajar con electrónica, es poder utilizar las entradas/salidas digitales que nos proveen los distintos microcontroladores; es por esto que micropython permite trabajar con entradas/salidas digitales.
 
-Una entrada/salida digital, permite mandar o recibir un pulso es decir, un 0 o un 1.
+Una entrada/salida digital, permite mandar o recibir un pulso binario es decir, un 0 o un 1, apagado o encendido.
 
 Otros aspecto importante es saber que es una entrada o una salida con respecto a electrónica.
 
-Una entrada es un puerto que permite recibir una señal.
+* Una entrada es un puerto que permite recibir una señal.
 
-Una salida es un puerto que permite lanzar una señal.
+* Una salida es un puerto que permite lanzar una señal.
 
 En la placa NodeMCU que utilizamos en este curso, podemos ver que tiene una serie de salidas digitales que van desde el 0 al 8; que son las cuales tienen una D al lado.
 
@@ -159,7 +159,7 @@ pin= Pin(4,Pin.IN,Pin.PULL_UP)
 ```
 Sabiendo esto, ya podemos crear nuestro primer montaje, comunmente conocido como Blink u Hola Mundo.
 
-### El Blink
+### Primer Ejercicio: El Blink
 
 Este primer montaje hará que un led parpadee.
 
@@ -299,10 +299,56 @@ while True:
 ```
 ## Sensores
 
+### Subida de ficheros con [mpfshell](#referencias)
+
+```bash
+$pip install mpfshell
+```
+### Libreria para el sensor de ultrasonidos (HC-SR04)
+
+Librería para micropython [ultrasonic.py](https://raw.githubusercontent.com/mithru/MicroPython-Examples/master/08.Sensors/HC-SR04/ultrasonic.py)
+
+```bash
+mpfshell -c "put ultrasonic.py"
+```
+
+
+![hcsr04](imagenes/hcsr04.png)
+
+```python
+from ultrasonic import Ultrasonic
+
+ultra = Ultrasonic(0,4)
+
+while True:
+    print(ultra.distance_in_cm())
+
+```
+
 ## ESP8266
 
+Como hemos mencionado anteriormente, en la NodeMCU tiene un Chip ESP8266 el cual tiene unas cracterísticas especificas que otros microcontroladores no tienen. Como por ejemplo el poder unirnos a una WIfi o crear un punto de acceso.
+
+### Conectarse a una Wifi
+
+### Crear un punto de acceso
+
+### crear un servidor Web
+
+### Funciones especificas del ESP8266
+
+
 ## WebREPL
+
+## Proyecto final
 
 ## Pinout del NodeMCU
 
 ![alt text](https://docs.bsfrance.fr/documentation/10663_NODEMCU_V3_CH340/Pinout.png "Esquema de pines para la NodeMCU")
+
+## Referencias
+
+* MicroPython Documentacion Oficial
+* AdaFruit MicroPython Tutorial
+* https://github.com/wendlers/mpfshell
+* Anaconda

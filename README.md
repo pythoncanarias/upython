@@ -399,9 +399,11 @@ while True:
 
 ## ESP8266
 
-Como hemos mencionado anteriormente, en la NodeMCU tiene un Chip ESP8266 el cual tiene unas cracterísticas especificas que otros microcontroladores no tienen. Como por ejemplo el poder unirnos a una WIfi o crear un punto de acceso.
+Como hemos mencionado anteriormente, en la NodeMCU tiene un Chip ESP8266 el cual tiene unas cracterísticas especificas que otros microcontroladores no tienen. Como por ejemplo el poder unirnos a una Wifi o crear un punto de acceso.
 
 ### Conectarse a una Wifi
+
+El ESP8266 permite tanto conectarse a una wifi, como crear una wifi y tener un punto de acceso.
 
 ### Crear un punto de acceso
 
@@ -411,6 +413,42 @@ Como hemos mencionado anteriormente, en la NodeMCU tiene un Chip ESP8266 el cual
 
 
 ## WebREPL
+
+Hasta ahora, hemos estado trabajando usando la consola serial. Sin embargo, podemos usar una consola web que nos permitirá trabajar con el microcontrolador via wifi.
+
+Para esto, es necesario configurar el acceso a la consola WebREPL, activandolo y además configurando una contraseña.
+
+Para configurar el WebREPL, nos conectaremos a la placa por consola Serial, e introduciremos la siguiente instrucción:
+
+```python
+import webrepl_setup
+```
+
+Tras esto, se nos preguntara si queremos activar el WebREPL, pulsando E (enable) para activarlo.
+
+Si por el contrario una vez conectado queremos iniciarla tendremos que introducir el siguiente codigo.
+
+```python
+import webrepl
+
+webrepl.start()
+```
+
+Seguidamente nos preguntará por la contraseña que pondremos para entrar en la consola WebREPL. La cual introduciremos dos veces.
+
+Una vez finalizado, la placa se reiniciara y podremos entrar en la consola web.
+
+Si no hemos modificado nada por defecto la NodeMCU estará en modo AP(Acces Point) por lo que podremos conectarnos a una wifi llamada MicroPython-XXX. Esta wifi nos permitira conectarnos a la consola.
+
+Pero antes de conectarnos, debemos entrar en la siguiente dirección:
+
+http://micropython.org/webrepl/
+
+Una vez conectados, ya podremos conectar a la wifi de MicroPython (La contraseña por defecto es "micropythoN").
+
+Tras esto ya podemos conectar usando la webREPL introducimos la direccºº1ºión IP y puerto para conectar y pulsamos el boton conectar. Nos preguntara la contraseña que pusimos al configurar el WebREPL y una vez introducida veremos la consola Python.
+
+![webrepl](imagenes/webrepl.png)
 
 ## Proyecto final
 

@@ -446,7 +446,7 @@ http://micropython.org/webrepl/
 
 Una vez conectados, ya podremos conectar a la wifi de MicroPython (La contraseña por defecto es "micropythoN").
 
-Tras esto ya podemos conectar usando la webREPL introducimos la direccºº1ºión IP y puerto para conectar y pulsamos el boton conectar. Nos preguntara la contraseña que pusimos al configurar el WebREPL y una vez introducida veremos la consola Python.
+Tras esto ya podemos conectar usando la webREPL introducimos la dirección IP y puerto para conectar y pulsamos el boton conectar. Nos preguntara la contraseña que pusimos al configurar el WebREPL y una vez introducida veremos la consola Python.
 
 ![webrepl](imagenes/webrepl.png)
 

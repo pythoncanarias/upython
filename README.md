@@ -1,5 +1,6 @@
 # upython
-
+ 
+ Curso sobre MicroPython del día 30 de septiembre.
 
 ## Contenidos del curso
 
@@ -10,6 +11,7 @@
 * [Entrada/Salida Analógica](#entradasalida-analogica)
 * [Sensores](#sensores)
 * [ESP8266](#esp8266)
+* [Proyecto Final](#proyecto-final)
 * [Pinout de NodeMCU](#pinout-del-nodemcu)
 
 
@@ -98,6 +100,20 @@ Una vez configurado el puerto (con el que nos aparece en nuestro MAC) y configur
 ![coolTerm](imagenes/coolTerm.png)
 
 #### Windows
+
+Para poder conectarnos via serial a nuestra placa NodeMCU, utilizaremos el famoso programa Putty; el cual podemos descargarnos [aquí](http://www.putty.org)
+
+Una vez descargado el programa lo abriremos y seleccionaremos la conexion por serial.
+
+![putty](imagenes/putty.jpg)
+
+En la dirección escribiremos el puerto al que nos conectaremos (COMX) y en la velocidad pondremos 11520. 
+
+Si requeririeramos una configuración mayor podemos ir al apartado serial y configurar nuestra placa.
+
+![puttyserial](imagenes/puttyserial.png)
+
+Una vez hecho esto, ya podemos continuar trabajando con nuestra placa.
 
 ## Que es MicroPython
 
@@ -405,6 +421,7 @@ Como hemos mencionado anteriormente, en la NodeMCU tiene un Chip ESP8266 el cual
 
 El ESP8266 permite tanto conectarse a una wifi, como crear una wifi y tener un punto de acceso.
 
+
 ### Crear un punto de acceso
 
 ### crear un servidor Web
@@ -451,6 +468,30 @@ Tras esto ya podemos conectar usando la webREPL introducimos la dirección IP y 
 ![webrepl](imagenes/webrepl.png)
 
 ## Proyecto final
+
+Una vez hemos visto todo lo necesario para crear el proyecto final de este curso. En este caso, vamos a crear un pequeño instrumento musica que en función de la distancia medida con el sensor de ultrasonidos, usaremos el buzzer para crear distintas notas.
+
+Además podemos crear iluminacion con los leds conectados e iluminando estos en función de la distancia medida con el sensor.
+
+**Recursos**
+
+* [Buzzer con micropython](https://pypi.python.org/pypi/micropython-buzzer/1.0.0)
+* [Ultrasonic](ultrasonic.py)
+
+**NOTA**: para instalar este paquete, tenemos que ejecutar upip.
+
+```bash
+$ micropython -m upip install micropython-pystone
+```
+
+* [upip instalación](https://pypi.python.org/pypi/micropython-upip/)
+
+## Ejercicios opcionales
+
+* Micropython trae un modulo especifico para el DHT11 que permite medir temperatura y humedad del aire. Se pide poder mostrar por consola el valor de la temperatura y humedad usando este [módulo](http://docs.micropython.org/en/latest/esp8266/esp8266/quickref.html?highlight=dht#dht-driver).
+
+* Micropython tiene un modulo especifico llamado neopixel, este modulo permite controlar los leds de una tira. Se pide cambiar los colores de una tira de leds con el tiempo. para ello usar el siguiente [módulo](http://docs.micropython.org/en/latest/esp8266/esp8266/quickref.html?highlight=dht#neopixel-driverhttp://docs.micropython.org/en/latest/esp8266/esp8266/quickref.html?highlight=dht#neopixel-driver).
+
 
 ## Pinout del NodeMCU
 

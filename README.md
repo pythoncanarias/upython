@@ -421,13 +421,117 @@ Como hemos mencionado anteriormente, en la NodeMCU tiene un Chip ESP8266 el cual
 
 El ESP8266 permite tanto conectarse a una wifi, como crear una wifi y tener un punto de acceso.
 
+Para conectar a un punto de acceso podemos usar el modulo ```network```.
+
+```python
+import network
+
+sta_if = network.WLAN(network.STA_IF)
+sta_if.active(True)
+sta_if.connect("SSID","PASSWORD")
+sta_if.isconnected()
+```
+
+**Ejemplo conexion externa**
+
+```python
+import network
+import socket
+
+
+sta_if = network.WLAN(network.STA_IF)
+sta_if.active(True)
+sta_if.connect("SSID","PASSWORD")
+sta_if.isconnected()
+
+addr_info = socket.getaddrinfo("towel.blinkenlights.nl", 23)
+
+addr = addr_info[0][-1]
+
+s = socket.socket()
+s.connect(addr)
+
+while True:
+     data = s.recv(500)
+     print(str(data, 'utf8'), end='')
+```
+
+[Más info](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/network_tcp.html#star-wars-asciimation)
+
+
 
 ### Crear un punto de acceso
 
+Al igual que para conectarnos a un punto de acceso, podemos crear uno. Para ello usaremos el siguiente fragmento.
+
+```python
+
+import network
+
+ap_if = network.WLAN(network.AP_IF)
+ap_if.active(True)
+```
+
 ### crear un servidor Web
+
+Usando Un socket podemos crear un servidor web.
+
+```python
+import machine
+pins = [machine.Pin(i, machine.Pin.IN) for i in (0, 2, 4, 5, 12, 13, 14, 15)]
+
+html = """<!DOCTYPE html>
+<html>
+    <head> <title>ESP8266 Pins</title> </head>
+    <body> <h1>ESP8266 Pins</h1>
+        <table border="1"> <tr><th>Pin</th><th>Value</th></tr> %s </table>
+    </body>
+</html>
+"""
+
+import socket
+addr = socket.getaddrinfo('0.0.0.0', 80)[0][-1]
+
+s = socket.socket()
+s.bind(addr)
+s.listen(1)
+
+print('listening on', addr)
+
+while True:
+    cl, addr = s.accept()
+    print('client connected from', addr)
+    cl_file = cl.makefile('rwb', 0)
+    while True:
+        line = cl_file.readline()
+        if not line or line == b'\r\n':
+            break
+    rows = ['<tr><td>%s</td><td>%d</td></tr>' % (str(p), p.value()) for p in pins]
+    response = html % '\n'.join(rows)
+    cl.send(response)
+    cl.close()
+```
 
 ### Funciones especificas del ESP8266
 
+El ESP8266 tiene funciones especificas que podemos utilizar.
+
+módulo ```esp```:
+
+```esp.sleep_type([sleep_type])```
+
+Obtiene o establece el modo ahorro de energia.
+
+* ```SLEEP_NONE``` - No establece el modo ahorro de energia.
+* ```SLEEP_MODEM``` - desactiva la wifi.
+* ```SLEEP_LIGHT``` - desactiva la wifi y el procesador.
+
+
+```esp.deepsleep(time)```
+
+Pone el circuito en modo ahorro de energia parando todos los circuitos incluido el procesador y temporizadores. Solo volvera al estado normal si se manda una señal por el GPIO16 (D0).
+
+ 
 
 ## WebREPL
 

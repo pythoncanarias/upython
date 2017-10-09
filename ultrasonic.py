@@ -55,7 +55,7 @@ class Ultrasonic:
 
         # Send a 10us pulse.
         self.trigger.on()
-        time.sleep_us(10)
+        time.sleep_us(20)
         self.trigger.off()
 
         # Wait 'till whe pulse starts.

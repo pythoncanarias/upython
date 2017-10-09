@@ -65,6 +65,13 @@ Para windows también debemos instalar los drivers CH340/CH341; que podemos enco
 
 Una vez instalado, usaremos los mismos pasos que para Linux poniendo el puerto COM correspondiente.
 
+**NOTA**: Si no es capaz de encontrar el path de PYthon probar con el siguiente comando.
+
+```bash
+$ python -m esptool <lista de parametros>
+```
+
+
 
 ### Herramientas de terminal
 

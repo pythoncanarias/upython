@@ -404,7 +404,7 @@ $pip install mpfshell
 Una vez instalado, usaremos este programa para subir el fichero de la librería.
 
 ```bash
-mpfshell -c "put ultrasonic.py"
+mpfshell tty.USB0 -c "put ultrasonic.py"
 ```
 
 

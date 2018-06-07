@@ -132,11 +132,15 @@ UPyCraft es un pequeño ide que permite conectar a nuestra placa ESP8266 o ESP32
 
 Puede descargarse del siguiente [enlace](https://github.com/DFRobot/uPyCraft)
 
-**Pychar Plugin de MicroPython**
+![upycraft](https://dfrobot.gitbooks.io/upycraft/content/assets/uPyCraft.png)
+
+**Pycharm Plugin de MicroPython**
 
 Podemos usar un plugin para _pycharm_ para conectar con nuestra placa ESP y trabajar con MicroPython.
 
 Puede verse más información en este [enlace](https://blog.jetbrains.com/pycharm/2018/01/micropython-plugin-for-pycharm/)
+
+![pycharmupython](https://d3nmt5vlzunoa1.cloudfront.net/pycharm/files/2018/01/image6.png)
 
 ## Que es MicroPython
 

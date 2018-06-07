@@ -122,6 +122,22 @@ Si requeririeramos una configuración mayor podemos ir al apartado serial y conf
 
 Una vez hecho esto, ya podemos continuar trabajando con nuestra placa.
 
+### Otros IDES
+
+Además de utilizar estas herramientas para conectarnos, podemos usar algunos IDES como _UpyCraft_ o _Pycharm_:
+
+*UPyCraft*
+
+UPyCraft es un pequeño ide que permite conectar a nuestra placa ESP8266 o ESP32 para poder desarrollar con MicroPython.
+
+Puede descargarse del siguiente [enlace](https://github.com/DFRobot/uPyCraft)
+
+*Pychar Plugin de MicroPython*
+
+Podemos usar un plugin para _pycharm_ para conectar con nuestra placa ESP y trabajar con MicroPython.
+
+Puede verse más información en este [enlace](https://blog.jetbrains.com/pycharm/2018/01/micropython-plugin-for-pycharm/)
+
 ## Que es MicroPython
 
 MicroPython es una implementacion del standar de Python 3.4(un conjunto de esta); además de tener una serie de librerías o framework para que sea ejecutado en microcontroladores.

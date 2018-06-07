@@ -188,6 +188,8 @@ Otro aspecto a tener en cuenta es definir si el puerto será de entrada o de sal
 * Si es de salida, utilizaremos la constante _OUT_.
 * Si es de entrada, utilizaremos la constante _IN_, seguido de la constante _PULL_UP_; la cual activa una resistencia interna para evitar cortocirtuitos.
 
+**NOTA**: Una resistencia PULL_UP, permite evitar falsos positivos ya que permite dar un valor erroneo a la hora de utilizar las entradas o salidas.
+
 ```python
 from machine import Pin
 

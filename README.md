@@ -126,13 +126,13 @@ Una vez hecho esto, ya podemos continuar trabajando con nuestra placa.
 
 Además de utilizar estas herramientas para conectarnos, podemos usar algunos IDES como _UpyCraft_ o _Pycharm_:
 
-*UPyCraft*
+**UPyCraft**
 
 UPyCraft es un pequeño ide que permite conectar a nuestra placa ESP8266 o ESP32 para poder desarrollar con MicroPython.
 
 Puede descargarse del siguiente [enlace](https://github.com/DFRobot/uPyCraft)
 
-*Pychar Plugin de MicroPython*
+**Pychar Plugin de MicroPython**
 
 Podemos usar un plugin para _pycharm_ para conectar con nuestra placa ESP y trabajar con MicroPython.
 

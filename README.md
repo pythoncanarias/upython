@@ -636,6 +636,10 @@ $ micropython -m upip install micropython-pystone
 
 ![alt text](https://docs.bsfrance.fr/documentation/10663_NODEMCU_V3_CH340/Pinout.png "Esquema de pines para la NodeMCU")
 
+## Pinout del Wemos D1 Mini
+
+![D1 mini](https://camo.githubusercontent.com/253e71b8ffdb3b3402f90315b0493622daec82b5/687474703a2f2f65736361706571756f7465732e6e65742f77702d636f6e74656e742f75706c6f6164732f323031362f30322f657370383236362d77656d6f732d64312d6d696e692d70696e6f75742e706e67)
+
 ## Referencias
 
 * [MicroPython Documentacion Oficial](https://docs.micropython.org/en/latest/esp8266/index.html)

@@ -347,6 +347,12 @@ while True:
 
 A la hora de utilizar las salidas analógicas, tenemos que saber que en la NodeMCU utiliza el llamado PWM.
 
+El _PWM_(Pulse Width Modulation) es una ténica en la que se modifica el ciclo de trabajo de una señal periodica para transimitir información a través de un canal de comunicaciones o enviar una cantidad de energia.
+
+Esto nos permite simular una salida analogica a través de un sistema digital. Modificando el ciclo de trabajo en un determinado tiempo para poder medir la cantidad de energía enviada.
+
+![graficopwm](https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/PWM%2C_3-level.svg/350px-PWM%2C_3-level.svg.png)
+
 En la NodeMCU tenemos 10 bits de precision por lo que podremos sacar un valor de 0 a 1023. Esto nos permitira por ejemplo, cambiar la intensidad del brillo de un led; cambiando el nivel de voltaje de este.
 
 Seguidamente veremos un ejemplo de como cambiar la intensidad de un led.

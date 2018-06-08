@@ -625,6 +625,14 @@ $ micropython -m upip install micropython-pystone
 
 * [upip instalación](https://pypi.python.org/pypi/micropython-upip/)
 
+También puede ejecutarse dentro del propio microcontrolador.
+
+```
+import upip
+
+upip.install('https://github.com/fruch/micropython-buzzer')
+```
+
 ## Ejercicios opcionales
 
 * Micropython trae un modulo especifico para el DHT11 que permite medir temperatura y humedad del aire. Se pide poder mostrar por consola el valor de la temperatura y humedad usando este [módulo](http://docs.micropython.org/en/latest/esp8266/esp8266/quickref.html?highlight=dht#dht-driver).

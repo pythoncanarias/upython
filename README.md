@@ -1,6 +1,6 @@
 # upython
  
- Curso sobre MicroPython del día 30 de septiembre.
+ Curso sobre MicroPython del día 9 de Junio 2018.
 
 ## Contenidos del curso
 

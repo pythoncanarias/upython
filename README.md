@@ -441,7 +441,7 @@ mpfshell tty.USB0 -c "put ultrasonic.py"
 ```python
 from ultrasonic import Ultrasonic
 
-ultra = Ultrasonic(0,4)
+ultra = Ultrasonic(4,0)
 
 while True:
     print(ultra.distance_in_cm())

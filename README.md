@@ -5,7 +5,7 @@
 ## Contenidos del curso
 
 * [Pasos Previos](#pasos-previos)
-* [Que es MicroPython](#que-es-micropython)
+* [Qué es MicroPython](#que-es-micropython)
 * [Primeros pasos con MicroPython](#primeros-pasos)
 * [Entrada/Salida Digital](#entradasalida-digital)
 * [Entrada/Salida Analógica](#entradasalida-analogica)
@@ -450,13 +450,13 @@ while True:
 
 ## ESP8266
 
-Como hemos mencionado anteriormente, en la NodeMCU tiene un Chip ESP8266 el cual tiene unas cracterísticas especificas que otros microcontroladores no tienen. Como por ejemplo el poder unirnos a una Wifi o crear un punto de acceso.
+Como hemos mencionado anteriormente, en la placa NodeMCU está presente un Chip ESP8266 que tiene unas cracterísticas especificas de las que carecen otros microcontroladores, como por ejemplo el poder unirnos a una red Wifi o crear un punto de acceso.
 
 ### Conectarse a una Wifi
 
 El ESP8266 permite tanto conectarse a una wifi, como crear una wifi y tener un punto de acceso.
 
-Para conectar a un punto de acceso podemos usar el modulo ```network```.
+Para conectar a un punto de acceso podemos usar el módulo ```network```:
 
 ```python
 import network

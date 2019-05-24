@@ -1,11 +1,11 @@
 # upython
  
- Curso sobre MicroPython del día 9 de Junio 2018.
+ Curso sobre _MicroPython_ del día 26 de mayo 2019.
 
 ## Contenidos del curso
 
+* [Qué es MicroPython](#qué-es-micropython)
 * [Pasos Previos](#pasos-previos)
-* [Qué es MicroPython](#que-es-micropython)
 * [Primeros pasos con MicroPython](#primeros-pasos)
 * [Entrada/Salida Digital](#entradasalida-digital)
 * [Entrada/Salida Analógica](#entradasalida-analogica)
@@ -14,66 +14,183 @@
 * [Proyecto Final](#proyecto-final)
 * [Pinout de NodeMCU](#pinout-del-nodemcu)
 
+## Qué es Micropython
+
+_MicroPython_​ es una implementación software del lenguaje de programación Python 3, escrita en C, y que está optimizada para poder ejecutarse en un microcontrolador.3​4​ _MicroPython_ es un compilador completo del lenguaje Python y un motor e intérprete en tiempo de ejecución, que funciona en el hardware del microcontrolador. 
+
+Al usuario se le presenta una línea de órdenes interactiva (el REPL) que soporta la ejecución inmediata de órdenes. Se incluye una selección de bibliotecas fundamentales de Python: _MicroPython_ incluye módulos que permiten al programador el acceso al hardware en bajo nivel.
+
+_MicroPython_ permite ser ejecutado en distintas placas con diferentes microcontroladores. En nuestro caso, utilizaremos la placa NodeMCU con el microcontrolador ESP32. Puedes usar de manera muy parecida la placa más económica ESP8266, igualmente válida para apredizaje y proyectos de pequeña envergadura.
+
+Para saber qué placas son compatibles, consulta la [documentación oficial](http://docs.micropython.org).
 
 ## Pasos Previos
 
-Antes de poder instalar MicroPython, necesitaremos tener instalado Python 3.4 o superior.
+Antes de poder instalar _MicroPython_, necesitaremos tener instalado Python 3.6 o superior.
 
 ### Instalación
 
-Para poder instalar MicroPython, descargaremos el firmware de la [Página oficial](http://micropython.org/download#esp8266) (Descargar el firmware para el chip correspondiente al ESP8266). Una vez descargado vamos a instalar las herramientas necesarias para flashear el chip con el firmware de MicroPython.
+#### Linux y MacOS
 
+Utilizando la herramienta _pip_ instalamos todo lo necesario en un solo paso. Esto es posible porque el editor de aprendizaje _Thonny_ realiza en un solo paso todo lo necesario para empezar, resolviendo por nosotros los problemas iniciales. Frente a todas estas ventajas, como inconveniente el editor _Thonny_ sólo está en idioma inglés y no hay planes de traducirlo.
 
-#### Linux
+Cuando tengamos más soltura, podemos pasar a nuestro editor habitual sin problema, pero habremos ahorrado mucho tiempo en el proceso. 
 
-Utilizando la herramienta _pip_ instalamos la herramienta _esptool_.
-
-```bash
-$ pip install esptool
-```
-
-Una vez instalado vamos a borrar la memoria flash del chip.
+Para instalar el editor _Thonny_, debemos comprobar que la versión de python que estamos ejecutando es la 3:
 
 ```bash
+$ python --version
+Python 2.7.15rc1
 
-$ esptool.py --port /dev/ttyUSB0 erase_flash
+```
+Si no lo es, actuaremos en consecuencia. Por ejemplo:
+```bash
+$ python3 --version
+Python 3.6.7
+
 ```
 
-Donde _/dev/ttyUSB0_ es el puerto serie donde se encuentre conectada la placa.
-
-Una vez hecho esto vamos a pasar a flashear el firmware en la placa.
+Y procederemos a la instalación:
 
 ```bash
-$ esptool.py --port /dev/ttyUSB0 --baud 460800 write_flash --flash_size=detect 0 esp8266-20170108-v1.9.2.bin
+$ python3 -m pip install thonny-esp
+
 ```
 
-Donde tenemos que poner el puerto donde esta conectado la velocidad en baudios (en algunas placas puede haber problemas de comunicación si la velocidad es muy alta; recomendamos poner 115200 baudios). Además de poner el nombre del fichero del firmware.
+Alternativamente, y si *python3* no es una orden reconocida, pero nuestra versión de python es la 3, podemos probar:
+
+```bash
+$ python -m pip install thonny-esp
+
+```
+
+Ahora tenemos dos posibilidades: o bien ejecutamos directamente el editor mediante la orden "thonny" o bien, si este procedimiento falla, mediante python.
+
+```bash
+$ thonny &
+
+```
+
+o alternativamente:
+
+```bash
+$ python -m thonny &
+
+```
 
 #### MacOs
 
-En MacOs la operación es la misma; sin embargo es necesario instalar los drivers del chip de comunicación USB CH340/CH341. Los cuales podemos descargar [aquí](http://www.mblock.cc/docs/run-makeblock-ch340-ch341-on-mac-os-sierra/).
+En MacOs la operación es la misma. Sin embargo, en caso de no tener el chip de comunicación CP2102, debemos instalar los drivers del chip alternativo USB CH340/CH341. Los podemos descargar [aquí](http://www.mblock.cc/docs/run-makeblock-ch340-ch341-on-mac-os-sierra/).
 
-Una vez instalado ya podremos ver el puerto serie en nuestro sistema.
+Una vez instalado, ya podremos ver el puerto serie en nuestro sistema.
 
-El resto de pasos, se realizan de igual forma que para Linux.
+El resto de pasos se realizan de igual forma que para Linux.
 
-![upythonmac](imagenes/upythonmac.png)
+![upythonlinux](imagenes/Thonny_primer_inicio.png)
 
 #### Windows
 
-Para windows también debemos instalar los drivers CH340/CH341; que podemos encontrar en la web del [fabricante](http://www.wch.cn/download/CH341SER_EXE.html).
+Para windows, en caso de no tener el chip de comunicación CP2102, también debemos instalar los drivers CH340/CH341; los podemos encontrar en la web del [fabricante](http://www.wch.cn/download/CH341SER_EXE.html).
 
-Una vez instalado, usaremos los mismos pasos que para Linux poniendo el puerto COM correspondiente.
-
-**NOTA**: Si no es capaz de encontrar el path de PYthon probar con el siguiente comando.
+Luego hay que ejecutar el Windows Power Shell y dentro de él las órdenes conocidas para las otras plataformas. Primero comprobamos que tenemos Python 3:
 
 ```bash
-$ python -m esptool <lista de parametros>
+$ python --version
+Python 3.6.7
+
+```
+De no ser así, tomaremos las medidas necesarias para conseguir tener instalado Python 3 y en condiciones de ejecutarse. Luego procederemos a instalar todo el sistema de aprendizaje en una sola orden:
+
+```bash
+$ python -m pip install thonny-esp
+
+```
+Una vez instalado el entorno de aprendizaje, seguiremos los mismos pasos que con Linux, especificando el puerto COM correspondiente dentro del editor _Thonny_, como veremos posteriormente.
+
+### Obtención del firmware de MicroPython
+
+Para poder instalar _MicroPython_, descargaremos el firmware de la [Página oficial](http://micropython.org/download#esp32) (Descargar el firmware para el chip correspondiente al ESP32). Una vez descargado, instalaremos las herramientas necesarias para _flashear_ el chip con el firmware de _MicroPython_. Lo instalaremos desde dentro del editor _Thonny_.
+
+### Instalación del firmware
+
+Tanto en Windows como en Linux/MacOs, seguiremos este procedimiento.
+
+Antes de comenzar, conectamos la placa al PC por un puerto USB, abrimos un terminal y ejecutamos:
+
+```bash
+$ thonny &
+
 ```
 
+o alternativamente:
+
+```bash
+$ python -m thonny &
+
+```
+
+Nos aparecerá una primera instancia del editor _Thonny_ con el intérprete de órdenes de Python que tengamos por defecto de nuestro sistema, en la parte inferior: 
+
+![thonnyinicio](imagenes/Thonny_tools_options.png)
+
+Podemos utilizar este editor para todas las operaciones básicas sin salirnos de él hasta que no cobremos más confianza, reduciendo de este modo los tiempos de instalación y la curva de aprendizaje inicial. Recuerde que es conveniente ejecutar Thonny con la placa ya conectada.
+
+En primer lugar seleccionaremos la opción _Options_ del menú _Tools_, y una vez dentro de ella, podremos en primer plano la pestaña _Interpreter_.
+Gracias a la orden única de instalación que hemos ejecutado, todos los programas y módulos necesarios para la comunicación se han instalado automáticamente. Tan sólo es necesario seleccionar aquí la placa ESP32, o en su defecto la ESP8266, ya que el procedimiento esra el mismo:
+
+![thonnyseleccionesp](imagenes/Thonny_seleccionar_esp32.png)
 
 
-### Herramientas de terminal
+Una vez hecho esto, y sin salirnos de esta pestaña, tenemos un segundo menú desplegable más abajo, que nos permite seleccionar el puerto. Si observamos con detenimiento, veremos que una de las opciones es parecida a `CP2104 USB to UART Bridge Controller (/dev/ttyUSB0)`, es decir, que debido a que ya hemos conectado la placa antes de ejecutar _Thonny_, debería aparecernos una opción semejante:
+
+![thonnyseleccionpuerto](imagenes/Thonny_seleccion_puerto.png)
+
+Ahora ya podemos pulsar OK y salirnos al programa principal. Observaremos que si nuestra placa no tiene ya el firmware de MicroPython, aparecerá un mensaje de error:
+
+![thonnyerrorinicial](imagenes/Thonny_error_inicial.png)
+
+Debido a que ya tenemos seleccionado el puerto, podemos proceder a subir a la placa ESP32 el firmware de _MicroPython_. Para poder instalar _MicroPython_, descargaremos el firmware de la [Página oficial](http://micropython.org/download#esp32) (Descargar el firmware para el chip correspondiente al ESP32).
+En el momento de realizar este tutorial, la última versión se podía obtener del [siguiente enlace](http://micropython.org/resources/firmware/esp32-ppp-fix.bin).
+
+La guardamos en un lugar conocido (por ejemplo, el directorio estándar de descargas para el navegador) y, con la placa conectada y detectada, seleccionamos la opción de subir el firmware a la placa desde dentro de _Thonny_. Para ello debemos elegir el menú _Device_ y dentro de él la opción _Install MicroPython to ESP8266/ESP32_:
+
+![thonnyelegirflashear](imagenes/Thonny_opcion_flashear.png)
+
+Y buscamos el lugar donde está disponible el firmware que nos hemos bajado. Elegimos el fichero, que tendrá la extensión `.bin`, y pulsamos aceptar:
+
+![thonnyelegirbin](imagenes/Thonny_seleccionar_imagen_bin.png)
+
+Automáticamente comenzará el proceso de flasheo de la placa, si ésta está conectada. En algunos casos puede ser necesario pulsar un botón en la placa:
+
+![thonnyflashing1](imagenes/Thonny_flashing1.png)
+
+
+![thonnyflashing4](imagenes/Thonny_flashing4.png)
+
+
+![thonnyflashing5](imagenes/Thonny_flashing5.png)
+
+Pulsamos el botón "`OK`" y en el menú _Run_ seleccionamos _Stop/Restart Backend_:
+
+![thonnystoprestart](imagenes/Thonny_stop_restart.png)
+
+Y mágicamente tenemos una interfaz REPL Python (si falla, tendrás que reiniciar _Thonny_), pero lo más normal es que obtengamos directamente control sobre la placa a través del teclado en la ventana inferior:
+
+![thonnyreplfuncionando](imagenes/Thonny_repl_funcionando.png)
+
+Ahora llevamos el cursor a donde está el signo `>>>` de intérprete de ordenes de _MicroPython_ en la ventana inferior de _Thonny_, y escribimos algunas órdenes:
+
+```bash
+>>> import sys
+>>> sys.version
+'3.4.0'
+
+```
+¡Enhorabuena! Hemos terminado nuestra instalación y primeros pasos de _MicroPython_. 
+
+### Avanzado: herramientas de terminal
+
+Puede ignorar este apartado, ya que haremos la conexión desde dentro de _Thonny_. Sin embargo, para usuarios avanzados, explicaremos brevemente las opciones de que disponen.
 
 #### Linux
 
@@ -124,37 +241,20 @@ Una vez hecho esto, ya podemos continuar trabajando con nuestra placa.
 
 ### Otros IDES
 
-Además de utilizar estas herramientas para conectarnos, podemos usar algunos IDES como _UpyCraft_ o _Pycharm_:
-
-**UPyCraft**
-
-UPyCraft es un pequeño ide que permite conectar a nuestra placa ESP8266 o ESP32 para poder desarrollar con MicroPython.
-
-Puede descargarse del siguiente [enlace](https://github.com/DFRobot/uPyCraft)
-
-![upycraft](https://dfrobot.gitbooks.io/upycraft/content/assets/uPyCraft.png)
+Además de utilizar estas herramientas para conectarnos, podemos usar algunos IDES como _Thonny_ (el que usamos en esta documentación) o _Pycharm_:
 
 **Pycharm Plugin de MicroPython**
 
-Podemos usar un plugin para _pycharm_ para conectar con nuestra placa ESP y trabajar con MicroPython.
+Podemos usar un plugin para _pycharm_ para conectar con nuestra placa ESP y trabajar con _MicroPython_.
 
 Puede verse más información en este [enlace](https://blog.jetbrains.com/pycharm/2018/01/micropython-plugin-for-pycharm/)
 
 ![pycharmupython](https://d3nmt5vlzunoa1.cloudfront.net/pycharm/files/2018/01/image6.png)
 
-## Que es MicroPython
-
-MicroPython es una implementacion del standar de Python 3.4(un conjunto de esta); además de tener una serie de librerías o framework para que sea ejecutado en microcontroladores.
-
-MicroPython permite ser ejecutado en distintas placas con varios microcontroladores. 
-
-En nuestro caso, utilizaremos la placa NodeMCU con el microcontrolador ESP8266.
-
-Para saber que placas son compatibles mirar en la [documentación oficial](http://docs.micropython.org).
 
 ## Primeros Pasos
 
-Una vez tenemos ya micropython, usaremos la consola serie para mandar las instrucciones Python; de forma que podremos ejecutar nuestro código python en la NodeMCU.
+Una vez tengamos ya _MicroPython_, usaremos la consola serie integrada en el editor _Thonny_ para mandar las instrucciones Python; de forma que podremos ejecutar nuestro código python en el ESP32.
 
 ![holamundo](imagenes/holamundo.png)
 

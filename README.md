@@ -7,6 +7,7 @@
 * [Qué es MicroPython](#qué-es-micropython)
 * [Pasos Previos](#pasos-previos)
 * [Primeros pasos con MicroPython](#primeros-pasos)
+* [Ejemplos del curso de Gran Canaria](#ejemplos-del-curso-de-gc)
 * [Entrada/Salida Digital](#entradasalida-digital)
 * [Entrada/Salida Analógica](#entradasalida-analogica)
 * [Sensores](#sensores)
@@ -32,9 +33,9 @@ Antes de poder instalar _MicroPython_, necesitaremos tener instalado Python 3.6 
 
 #### Linux y MacOS
 
-Utilizando la herramienta _pip_ instalamos todo lo necesario en un solo paso. Esto es posible porque el editor de aprendizaje _Thonny_ realiza en un solo paso todo lo necesario para empezar, resolviendo por nosotros los problemas iniciales. Frente a todas estas ventajas, como inconveniente el editor _Thonny_ sólo está en idioma inglés y no hay planes de traducirlo.
+Utilizando la herramienta _pip_ instalamos todo lo necesario en un solo paso. Esto es posible porque el editor de aprendizaje _Thonny_ realiza en un solo paso todo lo necesario para empezar, resolviendo por nosotros los problemas iniciales. Frente a todas estas ventajas, como inconveniente el editor _Thonny_ sólo está en idioma inglés, pero Python Canaria está en proceso de traducirlo para toda la comunidad hispanohablante, así que cuando leas esto gran parte del editor podría estar ya en castellano.
 
-Cuando tengamos más soltura, podemos pasar a nuestro editor habitual sin problema, pero habremos ahorrado mucho tiempo en el proceso. 
+Cuando tengamos más soltura, podemos pasar a nuestro editor habitual sin problema, pero habremos ahorrado mucho tiempo en el proceso, para la curva de aprendizaje inicial. 
 
 Para instalar el editor _Thonny_, debemos comprobar que la versión de python que estamos ejecutando es la 3:
 
@@ -57,7 +58,7 @@ $ python3 -m pip install thonny-esp
 
 ```
 
-Alternativamente, y si *python3* no es una orden reconocida, pero nuestra versión de python es la 3, podemos probar:
+Alternativamente, y si *python3* no es una orden reconocida por el sistema, pero nuestra versión de python es la 3, podemos probar:
 
 ```bash
 $ python -m pip install thonny-esp
@@ -92,7 +93,7 @@ El resto de pasos se realizan de igual forma que para Linux.
 
 Para windows, en caso de no tener el chip de comunicación CP2102, también debemos instalar los drivers CH340/CH341; los podemos encontrar en la web del [fabricante](http://www.wch.cn/download/CH341SER_EXE.html).
 
-Luego hay que ejecutar el Windows Power Shell y dentro de él las órdenes conocidas para las otras plataformas. Primero comprobamos que tenemos Python 3:
+Luego hay que ejecutar el Windows Power Shell (o su equivalente en las nuevas versiones) y dentro de él las órdenes conocidas para las otras plataformas. Primero comprobamos que tenemos Python 3:
 
 ```bash
 $ python --version
@@ -106,6 +107,13 @@ $ python -m pip install thonny-esp
 
 ```
 Una vez instalado el entorno de aprendizaje, seguiremos los mismos pasos que con Linux, especificando el puerto COM correspondiente dentro del editor _Thonny_, como veremos posteriormente.
+
+En el caso de Windows, ejecutaremos el editor _Thonny_ indirectamente mediante python:
+
+```bash
+$ python -m thonny 
+
+```
 
 ### Obtención del firmware de MicroPython
 
@@ -268,6 +276,107 @@ esp.check_fw()
 ```
 
 ![checkfw](imagenes/checkfw.png)
+
+## Ejemplos del curso de GC
+
+### Control del tiempo por polling
+```python
+import time, machine
+# dejamos el espacio de nombres sin "aplanar"
+# es decir, NO hacemos:
+# from machine import *
+class CuentaMs():
+    def __init__(self, ms):
+        self.ms = ms
+        self.reset()
+    def reset(self):
+        self.proximo = time.ticks_ms() + self.ms
+    def comprueba(self): 
+        if self.proximo <= time.ticks_ms():
+            self.reset()
+            return True
+        else:
+            return False
+
+PIN_LED = 16 # puede cambiar en cada placa
+led = machine.Pin(PIN_LED, machine.Pin.OUT)
+contador_ms = CuentaMs(500)
+
+while True:
+    # hacemos el resto de tareas
+    # las insertamos aquí, o despues del if?
+    if contador_ms.comprueba():
+        led.value(not led.value())
+```
+
+### Control del tiempo por polling, 3 cronómetros diferentes
+
+```python
+import time, machine
+class CuentaMs():
+    def __init__(self, ms):
+        self.ms = ms
+        self.reset()
+    def reset(self):
+        self.proximo = time.ticks_ms() + self.ms
+    def comprueba(self): 
+        if self.proximo <= time.ticks_ms():
+            self.reset()
+            return True
+        else:
+            return False
+
+pin = [machine.Pin(14, machine.Pin.OUT), machine.Pin(12, machine.Pin.OUT), machine.Pin(13, machine.Pin.OUT)]
+
+contador_ms = [CuentaMs(1000), CuentaMs(2333), CuentaMs(1698)]
+
+while True:
+    time.sleep(0.1)
+    for i, e in enumerate(contador_ms):
+        if e.comprueba():
+            pin[i].value(not pin[i].value())
+            print(" "* i, i, "ha pasado su tiempo")
+```
+### Funcionamiento de dos timers, uno repetido y otro momentáneo
+
+```python
+from machine import Timer
+
+tim = Timer(0)
+tim2 = Timer(1)
+tim.init(period=5000, mode=Timer.ONE_SHOT, callback=lambda t:print(1))
+tim2.init(period=2000, mode=Timer.PERIODIC, callback=lambda t:print(2))
+```
+
+### Control de las tareas por interrupciones
+```python
+import machine
+ 
+interruptCounter = 0
+totalInterruptsCounter = 0
+ 
+def callback(pin):
+  global interruptCounter
+  interruptCounter = interruptCounter+1
+  led.value(not led.value())
+
+p0 = machine.Pin(0, machine.Pin.IN, machine.Pin.PULL_UP)
+p0.irq(trigger=machine.Pin.IRQ_FALLING, handler=callback)
+
+PIN_LED = 5 # puede cambiar en cada placa
+led = machine.Pin(PIN_LED, machine.Pin.OUT)
+ 
+while True:
+ 
+  if interruptCounter>0:
+ 
+    state = machine.disable_irq()
+    interruptCounter = interruptCounter-1
+    machine.enable_irq(state)
+ 
+    totalInterruptsCounter = totalInterruptsCounter+1
+    print("Interrupt has occurred: " + str(totalInterruptsCounter))
+```
 
 ## Entrada/salida Digital
 

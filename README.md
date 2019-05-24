@@ -279,6 +279,7 @@ esp.check_fw()
 
 ## Ejemplos del curso de GC
 
+
 ### Control del tiempo por polling
 ```python
 import time, machine

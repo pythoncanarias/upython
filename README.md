@@ -1,6 +1,6 @@
 # upython
  
- Curso sobre _MicroPython_ del día 26 de mayo 2019.
+Curso sobre _MicroPython_ del día 26 de mayo 2019.
 
 ## Contenidos del curso
 
@@ -17,7 +17,7 @@
 
 ## Qué es Micropython
 
-_MicroPython_​ es una implementación software del lenguaje de programación Python 3, escrita en C, y que está optimizada para poder ejecutarse en un microcontrolador.3​4​ _MicroPython_ es un compilador completo del lenguaje Python y un motor e intérprete en tiempo de ejecución, que funciona en el hardware del microcontrolador. 
+_MicroPython_ es una implementación software del lenguaje de programación Python 3, escrita en C, y que está optimizada para poder ejecutarse en un microcontrolador. _MicroPython_ es un compilador completo del lenguaje Python y un motor e intérprete en tiempo de ejecución, que funciona en el hardware del microcontrolador. 
 
 Al usuario se le presenta una línea de órdenes interactiva (el REPL) que soporta la ejecución inmediata de órdenes. Se incluye una selección de bibliotecas fundamentales de Python: _MicroPython_ incluye módulos que permiten al programador el acceso al hardware en bajo nivel.
 
@@ -717,7 +717,7 @@ ap_if = network.WLAN(network.AP_IF)
 ap_if.active(True)
 ```
 
-### crear un servidor Web
+### Crear un servidor Web
 
 Usando Un socket podemos crear un servidor web.
 

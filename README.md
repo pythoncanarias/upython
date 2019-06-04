@@ -863,6 +863,6 @@ upip.install('https://github.com/fruch/micropython-buzzer')
 * [MicroPython Documentacion Oficial](https://docs.micropython.org/en/latest/esp8266/index.html)
 * [AdaFruit MicroPython Tutorial](https://learn.adafruit.com/building-and-running-micropython-on-the-esp8266/overview)
 * [Awesome Micropython](https://github.com/makersgc/awesome-micropython)
-* https://github.com/wendlers/mpfshell
+* [mpfshell](https://github.com/wendlers/mpfshell)
 * [Anaconda](https://anaconda.org/anaconda/python)
 * [upip](https://github.com/micropython/micropython-lib)

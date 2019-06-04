@@ -28,6 +28,7 @@ import time
 # Pin configuration.
 # WARNING: Do not use PA4-X5 or PA5-X6 as the echo pin without a 1k resistor.
 
+
 class Ultrasonic:
     def __init__(self, tPin, ePin):
         self.triggerPin = tPin
@@ -50,8 +51,7 @@ class Ultrasonic:
         end = 0
 
         # Create a microseconds counter.
-        start=time.ticks_us()
-        
+        start = time.ticks_us()
 
         # Send a 10us pulse.
         self.trigger.on()
@@ -65,9 +65,6 @@ class Ultrasonic:
         # Wait 'till the pulse is gone.
         while self.echo.value() == 1:
             end = time.ticks_us()
-
-       
-       
 
         # Calc the duration of the recieved pulse, divide the result by
         # 2 (round-trip) and divide it by 29 (the speed of sound is
